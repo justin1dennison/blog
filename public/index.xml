@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Justin</title>
+    <title>Justin&#39;s Musings</title>
     <link>/blog/</link>
-    <description>Recent content on Justin</description>
+    <description>Recent content on Justin&#39;s Musings</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 21 Jan 2020 11:39:28 -0500</lastBuildDate>
@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>Test Post</title>
+      <title>Welcome</title>
       <link>/blog/posts/test-post/</link>
       <pubDate>Tue, 21 Jan 2020 11:39:28 -0500</pubDate>
       
       <guid>/blog/posts/test-post/</guid>
-      <description></description>
+      <description>Welcome to my blog </description>
     </item>
     
   </channel>

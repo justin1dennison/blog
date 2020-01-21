@@ -1,4 +1,4 @@
-baseUrl = "https://justin1dennison.github.io/blog"
+baseUrl = "/blog"
 languageCode = "en-us"
 title = "Justin"
 theme = "ananke"

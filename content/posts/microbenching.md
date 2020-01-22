@@ -40,6 +40,6 @@ Now if you are unfamiliar with many of the platforms that I mentioned, then you 
 
 Well, yes it works based on the tests. However, the person reviewing the code made a mention that it was **SLOW**. 
 
-![Shocked Owl](/static/images/shocked-owl.gif)
+![Shocked Owl](/blog/images/shocked-owl.gif)
 
 Anytime someone says that, I give pause

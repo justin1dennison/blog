@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Justin&#39;s Musings</title>
-    <link>/blog/</link>
+    <link>/</link>
     <description>Recent content on Justin&#39;s Musings</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 22 Jan 2020 07:29:42 -0500</lastBuildDate>
     
-	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Microbenchmarking</title>
-      <link>/blog/posts/microbenching/</link>
+      <title>Microbenchmarking for Learning</title>
+      <link>/posts/microbenching/</link>
       <pubDate>Wed, 22 Jan 2020 07:29:42 -0500</pubDate>
       
-      <guid>/blog/posts/microbenching/</guid>
-      <description>Data Structures Make a Difference I enjoy working on small puzzles to try to learn as well as keep my programming skills sharp. I find these puzzles in several different places such as Code Wars, Project Euler, or Excercism.
+      <guid>/posts/microbenching/</guid>
+      <description>Data Structures Make a Difference I enjoy working on small puzzles to try to learn as well as keep my programming skills sharp. I find these puzzles in several different places such as Code Wars, Project Euler, or Exercism.
 Sample const x = &amp;#39;testing&amp;#39; </description>
     </item>
     

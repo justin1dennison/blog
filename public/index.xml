@@ -2,23 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Justin&#39;s Musings</title>
-    <link>justin1dennison.github.io/blog/</link>
+    <link>https://justin1dennison.github.io/blog/</link>
     <description>Recent content on Justin&#39;s Musings</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 22 Jan 2020 07:29:42 -0500</lastBuildDate>
     
-	<atom:link href="justin1dennison.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://justin1dennison.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Microbenchmarking for Learning</title>
-      <link>justin1dennison.github.io/blog/posts/microbenching/</link>
+      <link>https://justin1dennison.github.io/blog/posts/microbenching/</link>
       <pubDate>Wed, 22 Jan 2020 07:29:42 -0500</pubDate>
       
-      <guid>justin1dennison.github.io/blog/posts/microbenching/</guid>
+      <guid>https://justin1dennison.github.io/blog/posts/microbenching/</guid>
       <description>Data Structures Make a Difference I enjoy working on small puzzles to try to learn as well as keep my programming skills sharp. I find these puzzles in several different places such as Code Wars, Project Euler, or Exercism.
-Sample const x = &amp;#39;testing&amp;#39; </description>
+Before going any further, do know there may be spoilers for your solution to the problem if you want to try Exercism: Scrabble Score.
+I like to try different things when solving these problems to explore whether the code is more readable, use a different data structure than may normally be used, or a different programming paradigm (ex.</description>
     </item>
     
   </channel>

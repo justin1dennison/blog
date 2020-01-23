@@ -8,7 +8,7 @@ I enjoy working on small puzzles to try to learn as well as keep my programming 
 
 _Before going any further, do know there may be **spoilers** for your solution to the problem if you want to try Exercism: Scrabble Score._
 
-I like to try different things when solving these problems to explore whether the code is more readable, use a different data structure than may normally be used, or a different programming paradigm (ex. functional approach instead of an imperative one). Additionally, I use the mentoring to hear other programmers opinions and learn more than I would just working in isolation. 
+I like to try different things when solving these problems to explore whether the code is more readable, using a different data structure than may normally be used, or utilize different programming paradigm (ex. functional approach instead of an imperative one). Additionally, I use the mentoring or peer to peer interactions on these sites to hear other programmers opinions and learn more than I would just working in isolation. 
 
 My first solution is as follows:
 

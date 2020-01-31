@@ -12,7 +12,7 @@ You know what does have a pretty good cross platform story?
 ![Java Runs Everywhere](/blog/images/java-runs-everywhere.jpg)
 
 
-I am joking! I could have used Java, but I not excited about the development story. Moreover, if a system doesn’t have a JVM implementation, then we are back where we started with Python. So what other language or technology could I use to build a similar project to Daniel, but had easier portability.
+I am joking! I could have used Java, but I am not excited about the development story. Moreover, if a system doesn’t have a JVM implementation, then we are back where we started with Python. So what other language or technology could I use to build a similar project to Daniel, but had easier portability.
 
 It's Go time!
 

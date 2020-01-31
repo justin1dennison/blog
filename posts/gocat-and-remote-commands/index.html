@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Justin&#39;s Musings  | GoCat and Remote Commands</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.63.2" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/blog/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="GoCat and Remote Commands" />
+<meta property="og:description" content="This week at work, Daniel, a coworker, and I have been experimenting with replacing the usage of netcat for executing commands on a remote machine with a custom built piece of software. Well, more specifically, Daniel ran into some issues with netcat, with the -e option, being absent from a machine that he was trying to exploit. (Don&rsquo;t worry, it was for learning purposes and nothing malicious.) As a result, Daniel devised a simple replacement to a stand alone netcat binary." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://justin1dennison.github.io/blog/posts/gocat-and-remote-commands/" />
+<meta property="article:published_time" content="2020-01-29T16:17:21-05:00" />
+<meta property="article:modified_time" content="2020-01-29T16:17:21-05:00" />
+<meta itemprop="name" content="GoCat and Remote Commands">
+<meta itemprop="description" content="This week at work, Daniel, a coworker, and I have been experimenting with replacing the usage of netcat for executing commands on a remote machine with a custom built piece of software. Well, more specifically, Daniel ran into some issues with netcat, with the -e option, being absent from a machine that he was trying to exploit. (Don&rsquo;t worry, it was for learning purposes and nothing malicious.) As a result, Daniel devised a simple replacement to a stand alone netcat binary.">
+<meta itemprop="datePublished" content="2020-01-29T16:17:21-05:00" />
+<meta itemprop="dateModified" content="2020-01-29T16:17:21-05:00" />
+<meta itemprop="wordCount" content="701">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GoCat and Remote Commands"/>
+<meta name="twitter:description" content="This week at work, Daniel, a coworker, and I have been experimenting with replacing the usage of netcat for executing commands on a remote machine with a custom built piece of software. Well, more specifically, Daniel ran into some issues with netcat, with the -e option, being absent from a machine that he was trying to exploit. (Don&rsquo;t worry, it was for learning purposes and nothing malicious.) As a result, Daniel devised a simple replacement to a stand alone netcat binary."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://justin1dennison.github.io/blog/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Justin&#39;s Musings
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">GoCat and Remote Commands</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-01-29T16:17:21-05:00">January 29, 2020</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>This week at work, Daniel, a coworker, and I have been experimenting with replacing the usage of <code>netcat</code> for executing commands on a remote machine with a custom built piece of software. Well, more specifically, Daniel ran into some issues with <code>netcat</code>, with the <code>-e</code> option, being absent from a machine that he was trying to exploit. (Don&rsquo;t worry, it was for learning purposes and nothing malicious.) As a result, Daniel devised a simple replacement to a stand alone <code>netcat</code> binary.</p>
+<p>I started thinking though, &ldquo;What happens if you needed to run that application on a computer that does not have Python installed?&rdquo; Daniel had the same thought and decided to take a look into using <code>pyinstaller</code> to create binaries. I, however, was concerned about building for different platforms using <code>pyinstaller</code> because I have had some, let&rsquo;s say, trouble with <code>pyinstaller</code> before. I wanted to build a similar project that was easily distributed among different platforms.</p>
+<p>You know what does have a pretty good cross platform story?</p>
+<p><img src="/blog/images/java-runs-everywhere.jpg" alt="Java Runs Everywhere"></p>
+<p>I am joking! I could have used Java, but I not excited about the development story. Moreover, if a system doesn&rsquo;t have a JVM implementation, then we are back where we started with Python. So what other language or technology could I use to build a similar project to Daniel, but had easier portability.</p>
+<p>It&rsquo;s Go time!</p>
+<p>I have created some small projects using Go, but this seemed like a great place to leverage the cross compilation of Go binaries so that you can easily use the utility on different platforms. Using Daniel&rsquo;s Python implementation, I gave a whack at building a similar utility in Go.</p>
+<p>Below is the source:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;net&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;os/exec&#34;</span>
+	<span style="color:#e6db74">&#34;strings&#34;</span>
+)
+
+<span style="color:#66d9ef">const</span> (
+	<span style="color:#a6e22e">host</span>           = <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>
+	<span style="color:#a6e22e">port</span>           = <span style="color:#e6db74">&#34;3333&#34;</span>
+	<span style="color:#a6e22e">connectionType</span> = <span style="color:#e6db74">&#34;tcp&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">address</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s:%s&#34;</span>, <span style="color:#a6e22e">host</span>, <span style="color:#a6e22e">port</span>)
+	<span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Listen</span>(<span style="color:#a6e22e">connectionType</span>, <span style="color:#a6e22e">address</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Error listening:&#34;</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+		<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+	}
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">Close</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Listening on %s\n&#34;</span>, <span style="color:#a6e22e">address</span>)
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#a6e22e">conn</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">Accept</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Error accepting: &#34;</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+			<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+		}
+		<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">handleRequest</span>(<span style="color:#a6e22e">conn</span>)
+	}
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">handleRequest</span>(<span style="color:#a6e22e">conn</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Conn</span>) {
+	<span style="color:#a6e22e">buf</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">1024</span>)
+	<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">buf</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Error reading: &#34;</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+	}
+	<span style="color:#a6e22e">cmd</span>, <span style="color:#a6e22e">args</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">createCommand</span>(<span style="color:#a6e22e">buf</span>)
+	<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">execute</span>(<span style="color:#a6e22e">cmd</span>, <span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Error Executing&#34;</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+	}
+	<span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Write</span>([]byte(<span style="color:#a6e22e">result</span>))
+	<span style="color:#a6e22e">conn</span>.<span style="color:#a6e22e">Close</span>()
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createCommand</span>(<span style="color:#a6e22e">buffer</span> []<span style="color:#66d9ef">byte</span>) (<span style="color:#66d9ef">string</span>, []<span style="color:#66d9ef">string</span>) {
+	<span style="color:#a6e22e">initial</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Trim</span>(string(<span style="color:#a6e22e">buffer</span>), <span style="color:#e6db74">&#34;\x00\n&#34;</span>)
+	<span style="color:#a6e22e">parts</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Split</span>(<span style="color:#a6e22e">initial</span>, <span style="color:#e6db74">&#34; &#34;</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">parts</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">parts</span>[<span style="color:#ae81ff">1</span>:]
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">execute</span>(<span style="color:#a6e22e">command</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">exec</span>.<span style="color:#a6e22e">Command</span>(<span style="color:#a6e22e">command</span>, <span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>)
+	<span style="color:#a6e22e">stdout</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">StdoutPipe</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">Start</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#a6e22e">buf</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">1024</span>)
+	<span style="color:#a6e22e">stdout</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">buf</span>)
+	<span style="color:#a6e22e">output</span> <span style="color:#f92672">:=</span> string(<span style="color:#a6e22e">buf</span>)
+
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">Wait</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">output</span>, <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>Now I realize there are some hardcoded values in the above source as well as some issues with robustness, but this was a first pass. The question is, &ldquo;Are you now able to build the tool for different systems and have it work like you suspect?&rdquo; To test that, I manually built the binaries for MacOS, Windows, and Linux machines. I handed those over for Daniel to test and he confirmed that each one worked as expected.</p>
+<p>So what realizations came from this exercise:</p>
+<ul>
+<li>Go does require more code than Python. However, I realized that from previous projects.</li>
+<li>Go is very easy to cross compile and distribute for different platforms and architectures.</li>
+<li>Go may be a good replacement for Python when building security utilities because of the portability and rather robust standard library.</li>
+<li>If I were going to continue to work on this tool, then I would spend some time using it as is before making additional design decisions or changes. I see using command-line arguments to set the host and port for the tool, but that may be pointless complexity.</li>
+</ul>
+<p>Now when I do make changes, I would like to automatically rebuild the project. Moreover, I would like to make those changes available to others relatively quickly. That is a discussion for another time, but I will tell you that <strong>GitHub Actions</strong> achieve this. Stayed tuned for more&hellip;.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://justin1dennison.github.io/blog/" >
+    &copy;  Justin's Musings 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/blog/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

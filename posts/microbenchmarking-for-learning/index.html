@@ -6,7 +6,7 @@
     
     <title>Justin&#39;s Musings  | Microbenchmarking for Learning</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.62.2" />
+    <meta name="generator" content="Hugo 0.63.2" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -141,13 +141,13 @@ letter_values <span style="color:#f92672">=</span> [
 <h3 id="benchmarking-the-original-solution">Benchmarking the Original Solution</h3>
 <p><strong>Caution:</strong> <em>Microbenchmarking results can be difficult to reason about so use your own judgement about the following results.</em></p>
 <p>How does one benchmark a small function? I chose to use the <code>timeit</code> module that is part of the Python standard library, but there are other approaches to making these measurements such as using the <code>time</code> command in bash or utilizing a plugin for <code>pytest</code>.</p>
-<p>Let's look at the results:</p>
+<p>Let&rsquo;s look at the results:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python -m timeit -s <span style="color:#e6db74">&#39;from scrabble_score import score&#39;</span> <span style="color:#e6db74">&#39;score(&#34;awesome&#34;)&#39;</span> 
 <span style="color:#75715e">#50000 loops, best of 5: 7.42 usec per loop</span>
 python -m timeit -s <span style="color:#e6db74">&#39;from scrabble_score import score&#39;</span> <span style="color:#e6db74">&#39;score(&#34;chimichanga&#34;)&#39;</span>
 <span style="color:#75715e">#20000 loops, best of 5: 11.7 usec per loop</span>
 </code></pre></div><p>We can see that we are in the microsecond range for scoring a scrabble word. Now that seems fairly fast to me because I have a hard time understanding the microsecond scale, but maybe I am wrong.</p>
-<p>Let's rewrite the solution to see if we can make things <strong>FASTER</strong>.</p>
+<p>Let&rsquo;s rewrite the solution to see if we can make things <strong>FASTER</strong>.</p>
 <hr>
 <h3 id="rewrite-using-dictionaries">Rewrite Using Dictionaries</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">scores <span style="color:#f92672">=</span> (
@@ -172,7 +172,7 @@ lookup <span style="color:#f92672">=</span> dict(
 </code></pre></div><p>As you can see, I leveraged some of the previous solution, but created a lookup dictionary for determining the value for a given letter.</p>
 <p>But did that change anything?</p>
 <p>&hellip;</p>
-<p>Let's find out!!</p>
+<p>Let&rsquo;s find out!!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python -m timeit -s <span style="color:#e6db74">&#39;from scrabble_score import score&#39;</span> <span style="color:#e6db74">&#39;score(&#34;awesome&#34;)&#39;</span> 
 <span style="color:#75715e">#500000 loops, best of 5: 962 nsec per loop</span>
 python -m timeit -s <span style="color:#e6db74">&#39;from scrabble_score import score&#39;</span> <span style="color:#e6db74">&#39;score(&#34;chimichanga&#34;)&#39;</span>
@@ -190,7 +190,7 @@ lookup <span style="color:#f92672">=</span> {
     <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">z</span><span style="color:#e6db74">&#39;</span>: <span style="color:#ae81ff">10</span>, 
 }
 
-</code></pre></div><p>Well that was interesting to see, and I enjoy the perplexity that crops up in random places. I guess it is back to work. Let's see what other trouble, er&hellip; I mean, work I can get into.</p>
+</code></pre></div><p>Well that was interesting to see, and I enjoy the perplexity that crops up in random places. I guess it is back to work. Let&rsquo;s see what other trouble, er&hellip; I mean, work I can get into.</p>
 <ul class="pa0">
   
 </ul>

@@ -108,5 +108,5 @@ So what realizations came from this exercise:
 - Go may be a good replacement for Python when building security utilities because of the portability and rather robust standard library.
 - If I were going to continue to work on this tool, then I would spend some time using it as is before making additional design decisions or changes. I see using command-line arguments to set the host and port for the tool, but that may be pointless complexity.
 
-Now when I do make changes, I would like to automatically rebuild the project. Moreover, I would like to make those changes available to others relatively quickly. That is a discussion for another time, but I will tell you that **GitHub Actions** achieve this. Stayed tuned for more....
+Now when I do make changes, I would like to automatically rebuild the project. Moreover, I would like to make those changes available to others relatively quickly. That is a discussion for another time, but I will tell you that **GitHub Actions** achieve my automation goal. Stayed tuned for more....
 

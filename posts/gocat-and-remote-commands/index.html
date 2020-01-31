@@ -35,7 +35,7 @@
 <meta itemprop="description" content="This week at work, Daniel, a coworker, and I have been experimenting with replacing the usage of netcat for executing commands on a remote machine with a custom-built piece of software. Well, more specifically, Daniel ran into some issues with netcat, with the -e option, being absent from a machine that he was trying to exploit. (Don’t worry, it was for learning purposes and nothing malicious.) As a result, Daniel devised a simple replacement to a standalone netcat binary.">
 <meta itemprop="datePublished" content="2020-01-29T16:17:21-05:00" />
 <meta itemprop="dateModified" content="2020-01-29T16:17:21-05:00" />
-<meta itemprop="wordCount" content="699">
+<meta itemprop="wordCount" content="700">
 
 
 
@@ -107,7 +107,7 @@
 I started thinking though, “What happens if you needed to run that application on a computer that does not have Python installed?” Daniel had the same thought and decided to take a look into using pyinstaller to create binaries. I, however, was concerned about building for different platforms using pyinstaller because I have had some, let’s say, trouble with pyinstaller before. I wanted to build a similar project that was easily distributed among different platforms.</p>
 <p>You know what does have a pretty good cross platform story?</p>
 <p><img src="/blog/images/java-runs-everywhere.jpg" alt="Java Runs Everywhere"></p>
-<p>I am joking! I could have used Java, but I not excited about the development story. Moreover, if a system doesn’t have a JVM implementation, then we are back where we started with Python. So what other language or technology could I use to build a similar project to Daniel, but had easier portability.</p>
+<p>I am joking! I could have used Java, but I am not excited about the development story. Moreover, if a system doesn’t have a JVM implementation, then we are back where we started with Python. So what other language or technology could I use to build a similar project to Daniel, but had easier portability.</p>
 <p>It&rsquo;s Go time!</p>
 <p>I have created some small projects using Go, but this seemed like a great place to leverage the cross compilation of Go binaries so that you can easily use the utility on different platforms. Using Daniel’s Python implementation, I gave a whack at building a similar utility in Go.</p>
 <p>Below is the source:</p>

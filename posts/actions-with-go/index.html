@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Justin&#39;s Musings  | GitHub Actions With Go</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.64.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/blog/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="GitHub Actions With Go" />
+<meta property="og:description" content="Recently, I was working on a Go project (see GoCat and Remote Commands) in order to utilize Go&rsquo;s wonderful cross platform support. However, when I think about rebuilding the binaries everytime that I make changes to the project, I just get tired. A little voice in my head says&hellip;
+Before we move forward on how I automated the build process, I will warn you that sometimes this voice can create work for you that is not meaningful." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://justin1dennison.github.io/blog/posts/actions-with-go/" />
+<meta property="article:published_time" content="2020-02-05T09:54:08-05:00" />
+<meta property="article:modified_time" content="2020-02-05T09:54:08-05:00" />
+<meta itemprop="name" content="GitHub Actions With Go">
+<meta itemprop="description" content="Recently, I was working on a Go project (see GoCat and Remote Commands) in order to utilize Go&rsquo;s wonderful cross platform support. However, when I think about rebuilding the binaries everytime that I make changes to the project, I just get tired. A little voice in my head says&hellip;
+Before we move forward on how I automated the build process, I will warn you that sometimes this voice can create work for you that is not meaningful.">
+<meta itemprop="datePublished" content="2020-02-05T09:54:08-05:00" />
+<meta itemprop="dateModified" content="2020-02-05T09:54:08-05:00" />
+<meta itemprop="wordCount" content="1023">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GitHub Actions With Go"/>
+<meta name="twitter:description" content="Recently, I was working on a Go project (see GoCat and Remote Commands) in order to utilize Go&rsquo;s wonderful cross platform support. However, when I think about rebuilding the binaries everytime that I make changes to the project, I just get tired. A little voice in my head says&hellip;
+Before we move forward on how I automated the build process, I will warn you that sometimes this voice can create work for you that is not meaningful."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://justin1dennison.github.io/blog/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Justin&#39;s Musings
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">GitHub Actions With Go</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-02-05T09:54:08-05:00">February 5, 2020</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Recently, I was working on a Go project (see <a href="/blog/posts/gocat-and-remote-commands/">GoCat and Remote Commands</a>) in order to utilize Go&rsquo;s wonderful cross platform support. However, when I think about rebuilding the binaries everytime that I make changes to the project, I just get tired. A little voice in my head says&hellip;</p>
+<p><img src="/blog/images/automate-everything.png" alt="Buzz telling Woody that he should automate everything"></p>
+<p>Before we move forward on how I automated the build process, I will warn you that sometimes this voice can create work for you that is not meaningful. If you can accomplish a task one time and be done, then please do not set up automation. However, if you know that you are going to repeat that same task over and over again, then automation will save you some time in the long run.</p>
+<p>With that out of the way, let&rsquo;s get to the fun part: <strong>Automation!</strong></p>
+<p>I have used various continuous integration platforms before such as Travis CI, but recently <em>GitHub Actions</em> have become publicly available so I figured that now is the time to give them a try. I have been excited about GitHub actions because I don&rsquo;t have to remember or choose other services. Everything that I need for a project is in a centralized location. So I dove in trying to get GitHub Actions to build Go binaries for 64-bit Linux, Windows, and MacOS.</p>
+<p>I got a little deep in the weeds a little too fast&hellip;</p>
+<p><img src="/blog/images/confused-spongebob.gif" alt="Spongbob Squarepants getting very confused and tangling his arms together."></p>
+<p>I was having some issues just getting GitHub Actions to build the binaries and upload the artifacts to GitHub Releases for the project. A few different things went wrong:</p>
+<ol>
+<li>I was trying to accomplish everything in a single build job. This seemed like it would work for me, but I ran into issues with the artifacts being 30 kilobytes in size. That should be okay, right? Well, when I built the Go project locally, each of the binaries were ~3MB in size. So I downloaded the artifacts from GitHub Releases and found that it was a text file with a warning message contained within.</li>
+<li>I didn&rsquo;t understand how to parameterize builds when using Actions. As a result, I tried to lean on the fact that the build environment was a Linux machine and I could script the compilation of the project with Bash. (Hey! That seemed like a good idea.) However, the build process was very opaque with errors or issues that occurred so debugging was a nightmare. Additionally, this was combined with the issue from #1.</li>
+<li>Testing changes sometimes caused contention for resources to build so there would be a failure that had nothing to do with the project build setup. (I was making changes and pushing to the repository a great deal as that seemed to be the only way to test the changes I made to the build process).</li>
+</ol>
+<p>I was getting frustrated&hellip;So I took a break. I thought, &ldquo;Okay, I need to take a step back. Let me head to the documentation!&quot;.</p>
+<p>Upon my inspection of the GitHub Actions documentation (<a href="https://help.github.com/en/actions/automating-your-workflow-with-github-actions">here</a>), I found a couple of interesting pieces that might work to my advantage. The <code>jobs.strategy</code> and <code>jobs.needs</code> portions would allow me to parameterize and stage build steps in a job. Now, I will say that I am glossing over some exploration of these features so don&rsquo;t think I got this right on the first try. To see how I utilized these, let&rsquo;s take a look at the workflow file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">name</span>: Go
+<span style="color:#66d9ef">on</span>: [push]
+<span style="color:#66d9ef">jobs</span>:
+  <span style="color:#66d9ef">build</span>:
+    <span style="color:#66d9ef">name</span>: Build
+    <span style="color:#66d9ef">runs-on</span>: ubuntu-latest
+    <span style="color:#66d9ef">strategy</span>:
+      <span style="color:#66d9ef">matrix</span>:
+        <span style="color:#66d9ef">platform</span>: [darwin, linux, windows]
+        <span style="color:#66d9ef">arch</span>: [amd64, <span style="color:#ae81ff">386</span>]
+    <span style="color:#66d9ef">steps</span>:
+      - <span style="color:#66d9ef">name</span>: Set up Go <span style="color:#ae81ff">1.13</span>
+        <span style="color:#66d9ef">uses</span>: actions/setup-go@v1
+        <span style="color:#66d9ef">with</span>:
+          <span style="color:#66d9ef">go-version</span>: <span style="color:#ae81ff">1.13</span>
+        <span style="color:#66d9ef">id</span>: go
+
+      - <span style="color:#66d9ef">name</span>: Check out code into the Go module directory
+        <span style="color:#66d9ef">uses</span>: actions/checkout@v2
+
+      - <span style="color:#66d9ef">name</span>: Get dependencies
+        <span style="color:#66d9ef">run</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">         </span><span style="color:#e6db74"> </span><span style="color:#e6db74">go get -v -t -d ./...</span>
+          if [ -f Gopkg.toml ]; then
+              curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+              dep ensure
+          fi
+
+      - <span style="color:#66d9ef">name</span>: Build
+        <span style="color:#66d9ef">run</span>: go build -v -o ${{ matrix.platform }}.${{ matrix.arch }}.goCat .
+
+      - <span style="color:#66d9ef">name</span>: Upload Artifacts
+        <span style="color:#66d9ef">uses</span>: actions/upload-artifact@master
+        <span style="color:#66d9ef">with</span>:
+          <span style="color:#66d9ef">name</span>: binaries
+          <span style="color:#66d9ef">path</span>: ${{ matrix.platform }}.${{ matrix.arch }}.goCat
+
+  <span style="color:#66d9ef">release</span>:
+    <span style="color:#66d9ef">name</span>: Release binaries
+    <span style="color:#66d9ef">runs-on</span>: ubuntu-latest
+    <span style="color:#66d9ef">needs</span>: build
+    <span style="color:#66d9ef">steps</span>:
+      - <span style="color:#66d9ef">name</span>: Download the results from builds
+        <span style="color:#66d9ef">uses</span>: actions/download-artifact@v1
+        <span style="color:#66d9ef">with</span>:
+          <span style="color:#66d9ef">name</span>: binaries
+      - <span style="color:#66d9ef">name</span>: Upload the release
+        <span style="color:#66d9ef">uses</span>: marvinpinto/action-automatic-releases@latest
+        <span style="color:#66d9ef">with</span>:
+          <span style="color:#66d9ef">repo_token</span>: ${{ secrets.GITHUB_TOKEN }}
+          <span style="color:#66d9ef">automatic_release_tag</span>: latest
+          <span style="color:#66d9ef">files</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">           </span><span style="color:#e6db74"> </span><span style="color:#e6db74">binaries/*</span>
+</code></pre></div><p>There is a lot going on in the workflow file above. However, I want to focus on the keys points that allowed me to automate the Go build. First, if you look at the <code>strategy</code> section, then you will see the following section:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">strategy</span>:
+    <span style="color:#66d9ef">matrix</span>:
+        <span style="color:#66d9ef">platform</span>: [darwin, linux, windows]
+        <span style="color:#66d9ef">arch</span>: [amd64, <span style="color:#ae81ff">386</span>]
+</code></pre></div><p>You can use this to set up templated tasks. For instance, one of the build steps that I use is</p>
+<pre><code>go build -v -o ${{ matrix.platform }}.${{ matrix.arch }}.goCat .
+</code></pre><p>which repeats for every value of <strong>platform</strong> and <strong>arch</strong> for a total of six runs. This was way easier than writing a custom script to build the project. Furthermore, you can use GitHub Action to share artifacts between jobs. As a result, I would save the artifacts after they were compiled and move to a release job.</p>
+<p>I separated these jobs so I could understand where a failure occurred. I am glad that I made that decisions, but that separation did lead to an issue where the release would run <strong>before</strong> the build portion. However, further consultation of the documentation led me to <code>needs</code>. Using the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+<span style="color:#66d9ef">needs</span>: build
+...
+</code></pre></div><p>can enforce run order of the jobs. After adding that single line, then VOILA! - automated rebuilds upon every push to master.</p>
+<p>Now if you look at this workflow a little closer, there are some shortcomings and/or things that require further consideration.</p>
+<ol>
+<li>I am not using versioning or a process for when to rebuild and release.</li>
+<li>I could think about the event that triggers a rebuild as to not churn up GitHub resources.</li>
+<li>I am using some marketplace custom actions (think of it as a store for build steps), that can have bugs (the small binary size was one such bug.).</li>
+</ol>
+<p>Overall, GitHub Actions are a promising replacement for some CI setups. Your mileage may vary depending on the complexity of your current build process, but definitely check it out.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://justin1dennison.github.io/blog/" >
+    &copy;  Justin's Musings 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/blog/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

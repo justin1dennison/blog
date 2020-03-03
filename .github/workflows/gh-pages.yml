@@ -20,6 +20,8 @@ jobs:
 
       - name: Build
         run: hugo --cleanDestinationDir
+        env: 
+           HUGO_ENV: production
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v2

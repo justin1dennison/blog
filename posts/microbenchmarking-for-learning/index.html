@@ -6,10 +6,10 @@
     
     <title>Justin&#39;s Musings  | Microbenchmarking for Learning</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.64.0" />
+    <meta name="generator" content="Hugo 0.65.3" />
     
     
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
     
 
     
@@ -49,9 +49,22 @@ I like to try different things when solving these problems to explore whether th
 Before going any further, do know there may be spoilers for your solution to the problem if you want to try Exercism: Scrabble Score.
 I like to try different things when solving these problems to explore whether the code is more readable, using a different data structure than may normally be used, or utilize different programming paradigm (ex."/>
 
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-159569087-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
   </head>
 
-  <body class="ma0 avenir bg-near-white">
+  <body class="ma0 avenir bg-near-white production">
 
     
    
@@ -115,13 +128,13 @@ I like to try different things when solving these problems to explore whether th
 <p>My first solution is as follows:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Scrabble Score</span>
 letter_values <span style="color:#f92672">=</span> [
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">aeioulnrst</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">1</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">dg</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">2</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">bcmp</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">3</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">fhvwy</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">4</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">k</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">5</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">jx</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">8</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">qz</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">10</span>),
+    (set(<span style="color:#e6db74">&#34;aeioulnrst&#34;</span>), <span style="color:#ae81ff">1</span>),
+    (set(<span style="color:#e6db74">&#34;dg&#34;</span>), <span style="color:#ae81ff">2</span>),
+    (set(<span style="color:#e6db74">&#34;bcmp&#34;</span>), <span style="color:#ae81ff">3</span>),
+    (set(<span style="color:#e6db74">&#34;fhvwy&#34;</span>), <span style="color:#ae81ff">4</span>),
+    (set(<span style="color:#e6db74">&#34;k&#34;</span>), <span style="color:#ae81ff">5</span>),
+    (set(<span style="color:#e6db74">&#34;jx&#34;</span>), <span style="color:#ae81ff">8</span>),
+    (set(<span style="color:#e6db74">&#34;qz&#34;</span>), <span style="color:#ae81ff">10</span>),
 ]
 
 
@@ -151,13 +164,13 @@ python -m timeit -s <span style="color:#e6db74">&#39;from scrabble_score import 
 <hr>
 <h3 id="rewrite-using-dictionaries">Rewrite Using Dictionaries</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">scores <span style="color:#f92672">=</span> (
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">aeioulnrst</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">1</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">dg</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">2</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">bcmp</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">3</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">fhvwy</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">4</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">k</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">5</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">jx</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">8</span>),
-    (set(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">qz</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">10</span>),
+    (set(<span style="color:#e6db74">&#34;aeioulnrst&#34;</span>), <span style="color:#ae81ff">1</span>),
+    (set(<span style="color:#e6db74">&#34;dg&#34;</span>), <span style="color:#ae81ff">2</span>),
+    (set(<span style="color:#e6db74">&#34;bcmp&#34;</span>), <span style="color:#ae81ff">3</span>),
+    (set(<span style="color:#e6db74">&#34;fhvwy&#34;</span>), <span style="color:#ae81ff">4</span>),
+    (set(<span style="color:#e6db74">&#34;k&#34;</span>), <span style="color:#ae81ff">5</span>),
+    (set(<span style="color:#e6db74">&#34;jx&#34;</span>), <span style="color:#ae81ff">8</span>),
+    (set(<span style="color:#e6db74">&#34;qz&#34;</span>), <span style="color:#ae81ff">10</span>),
 )
 
 lookup <span style="color:#f92672">=</span> dict(
@@ -182,12 +195,12 @@ python -m timeit -s <span style="color:#e6db74">&#39;from scrabble_score import 
 <p>The real take away though. I think you should explore data structures, paradigms, and different solutions when learning. However, picking an appropriate data structure (such as a dictionary) can provide better performance and many times readability. If I wanted to further refine the solution above, then I would take some time to change how the <code>lookup</code> dictionary is constructed such as:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
 lookup <span style="color:#f92672">=</span> {
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">a</span><span style="color:#e6db74">&#39;</span>: <span style="color:#ae81ff">1</span>, 
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span>: <span style="color:#ae81ff">3</span>, 
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">c</span><span style="color:#e6db74">&#39;</span>: <span style="color:#ae81ff">3</span>,
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">d</span><span style="color:#e6db74">&#39;</span>: <span style="color:#ae81ff">2</span>,  
+    <span style="color:#e6db74">&#39;a&#39;</span>: <span style="color:#ae81ff">1</span>, 
+    <span style="color:#e6db74">&#39;b&#39;</span>: <span style="color:#ae81ff">3</span>, 
+    <span style="color:#e6db74">&#39;c&#39;</span>: <span style="color:#ae81ff">3</span>,
+    <span style="color:#e6db74">&#39;d&#39;</span>: <span style="color:#ae81ff">2</span>,  
     <span style="color:#75715e">#...</span>
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">z</span><span style="color:#e6db74">&#39;</span>: <span style="color:#ae81ff">10</span>, 
+    <span style="color:#e6db74">&#39;z&#39;</span>: <span style="color:#ae81ff">10</span>, 
 }
 
 </code></pre></div><p>Well that was interesting to see, and I enjoy the perplexity that crops up in random places. I guess it is back to work. Let&rsquo;s see what other trouble, er&hellip; I mean, work I can get into.</p>

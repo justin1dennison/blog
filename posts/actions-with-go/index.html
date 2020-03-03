@@ -6,10 +6,10 @@
     
     <title>Justin&#39;s Musings  | GitHub Actions With Go</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="generator" content="Hugo 0.64.0" />
+    <meta name="generator" content="Hugo 0.65.3" />
     
     
-      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
     
 
     
@@ -46,9 +46,22 @@ Before we move forward on how I automated the build process, I will warn you tha
 <meta name="twitter:description" content="Recently, I was working on a Go project (see GoCat and Remote Commands) in order to utilize Go&rsquo;s wonderful cross platform support. However, when I think about rebuilding the binaries everytime that I make changes to the project, I just get tired. A little voice in my head says&hellip;
 Before we move forward on how I automated the build process, I will warn you that sometimes this voice can create work for you that is not meaningful."/>
 
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-159569087-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
   </head>
 
-  <body class="ma0 avenir bg-near-white">
+  <body class="ma0 avenir bg-near-white production">
 
     
    
@@ -143,7 +156,7 @@ Before we move forward on how I automated the build process, I will warn you tha
 
       - <span style="color:#66d9ef">name</span>: Get dependencies
         <span style="color:#66d9ef">run</span>: <span style="color:#e6db74">|
-</span><span style="color:#e6db74">         </span><span style="color:#e6db74"> </span><span style="color:#e6db74">go get -v -t -d ./...</span>
+</span><span style="color:#e6db74">          go get -v -t -d ./...</span>
           if [ -f Gopkg.toml ]; then
               curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
               dep ensure
@@ -173,7 +186,7 @@ Before we move forward on how I automated the build process, I will warn you tha
           <span style="color:#66d9ef">repo_token</span>: ${{ secrets.GITHUB_TOKEN }}
           <span style="color:#66d9ef">automatic_release_tag</span>: latest
           <span style="color:#66d9ef">files</span>: <span style="color:#e6db74">|
-</span><span style="color:#e6db74">           </span><span style="color:#e6db74"> </span><span style="color:#e6db74">binaries/*</span>
+</span><span style="color:#e6db74">            binaries/*</span>
 </code></pre></div><p>There is a lot going on in the workflow file above. However, I want to focus on the keys points that allowed me to automate the Go build. First, if you look at the <code>strategy</code> section, then you will see the following section:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">strategy</span>:
     <span style="color:#66d9ef">matrix</span>:

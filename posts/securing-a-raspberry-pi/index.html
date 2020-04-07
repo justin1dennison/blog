@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Justin&#39;s Musings  | Securing a Raspberry Pi</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.68.3" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+    
+
+    
+    
+      <link href="/blog/dist/css/app.3f5912c237ddd38c8e76debe081c7ca7.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+    
+    <meta property="og:title" content="Securing a Raspberry Pi" />
+<meta property="og:description" content="Recently, I have been working on an automated water system. I am working on a proof of concept that would allow me to expand into more and more IoT projects for my house. In order to accomplish this, I am going to be running some services on a Raspberry Pi. Now, I know some of you are saying&hellip;.
+I want to add a firewall and change my network to separate these IoT devices from the rest of my home devices." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://justin1dennison.github.io/blog/posts/securing-a-raspberry-pi/" />
+<meta property="article:published_time" content="2020-04-07T11:01:59-04:00" />
+<meta property="article:modified_time" content="2020-04-07T11:01:59-04:00" />
+<meta itemprop="name" content="Securing a Raspberry Pi">
+<meta itemprop="description" content="Recently, I have been working on an automated water system. I am working on a proof of concept that would allow me to expand into more and more IoT projects for my house. In order to accomplish this, I am going to be running some services on a Raspberry Pi. Now, I know some of you are saying&hellip;.
+I want to add a firewall and change my network to separate these IoT devices from the rest of my home devices.">
+<meta itemprop="datePublished" content="2020-04-07T11:01:59-04:00" />
+<meta itemprop="dateModified" content="2020-04-07T11:01:59-04:00" />
+<meta itemprop="wordCount" content="589">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Securing a Raspberry Pi"/>
+<meta name="twitter:description" content="Recently, I have been working on an automated water system. I am working on a proof of concept that would allow me to expand into more and more IoT projects for my house. In order to accomplish this, I am going to be running some services on a Raspberry Pi. Now, I know some of you are saying&hellip;.
+I want to add a firewall and change my network to separate these IoT devices from the rest of my home devices."/>
+
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-159569087-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body class="ma0 avenir bg-near-white production">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://justin1dennison.github.io/blog/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Justin&#39;s Musings
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Securing a Raspberry Pi</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-04-07T11:01:59-04:00">April 7, 2020</time>
+      
+      
+    </header>
+
+    <section class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Recently, I have been working on an automated water system. I am working on a proof of concept that would allow me to expand into more and more IoT projects for my house. In order to accomplish this, I am going to be running some services on a Raspberry Pi. Now, I know some of you are saying&hellip;.</p>
+<p><img src="/blog/images/iot-security.jpeg" alt="Archer saying do you want hackers because that is how you get hackers."></p>
+<p>I want to add a firewall and change my network to separate these IoT devices from the rest of my home devices. However, that is something that is more of a lift than I have time for at current. However, I could secure the Raspberry Pi as a transitional step. So let&rsquo;s secure things a little bit. Oh! And I love automating things for later expansion so let&rsquo;s do it using Ansible.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># main.yml</span>
+---
+- <span style="color:#66d9ef">hosts</span>: pis
+  <span style="color:#66d9ef">vars_prompt</span>:
+    - <span style="color:#66d9ef">name</span>: password
+      <span style="color:#66d9ef">prompt</span>: <span style="color:#e6db74">&#34;Password?&#34;</span>
+    - <span style="color:#66d9ef">name</span>: root_password
+      <span style="color:#66d9ef">prompt</span>: <span style="color:#e6db74">&#34;Root Password Change?&#34;</span>
+  <span style="color:#66d9ef">vars</span>:
+    <span style="color:#66d9ef">hostname_prefix</span>: node
+    <span style="color:#66d9ef">locale</span>: en_US.UTF<span style="color:#ae81ff">-8</span>
+    <span style="color:#66d9ef">timezone</span>: <span style="color:#e6db74">&#34;America/New York&#34;</span>
+    <span style="color:#66d9ef">ssh</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">keyboard_layout</span>: 
+    <span style="color:#66d9ef">username</span>: justin
+    <span style="color:#66d9ef">ufw_enabled</span>: <span style="color:#66d9ef">true</span>
+    <span style="color:#66d9ef">packages</span>:
+      - ufw
+      - unattended-upgrades
+      - neovim
+      - git
+      - fail2ban
+  <span style="color:#66d9ef">become</span>: yes
+  <span style="color:#66d9ef">tasks</span>:
+    - <span style="color:#66d9ef">name</span>: update raspi-config
+      <span style="color:#66d9ef">become</span>: <span style="color:#66d9ef">true</span>
+      <span style="color:#66d9ef">apt</span>:
+        <span style="color:#66d9ef">name</span>: raspi-config
+        <span style="color:#66d9ef">update_cache</span>: yes
+        <span style="color:#66d9ef">state</span>: present
+        <span style="color:#66d9ef">cache_valid_time</span>: <span style="color:#ae81ff">3600</span>
+    - <span style="color:#66d9ef">name</span>: get hostname
+      <span style="color:#66d9ef">shell</span>: <span style="color:#e6db74">&#34;raspi-config nonint get_hostname&#34;</span>
+      <span style="color:#66d9ef">register</span>: pi_hostname
+    - <span style="color:#66d9ef">name</span>: change hostname
+      <span style="color:#66d9ef">shell</span>: <span style="color:#e6db74">&#34;raspi-config nonint do_hostname {{ hostname_prefix }}-{{ groups[&#39;pis&#39;].index(inventory_hostname) }}&#34;</span>
+      <span style="color:#66d9ef">when</span>: pi_hostname.stdout != <span style="color:#e6db74">&#34;{{ hostname_prefix }}-{{ groups[&#39;pis&#39;].index(inventory_hostname) }}&#34;</span>
+    - <span style="color:#66d9ef">name</span>: change locale
+      <span style="color:#66d9ef">shell</span>: <span style="color:#e6db74">&#34;raspi-config nonint do_change_locale {{ locale }}&#34;</span>
+    - <span style="color:#66d9ef">name</span>: change timezone
+      <span style="color:#66d9ef">shell</span>: <span style="color:#e6db74">&#34;raspi-config nonint do_change_timezone {{ timezone }}&#34;</span>
+    - <span style="color:#66d9ef">name</span>: change keyboard layout
+      <span style="color:#66d9ef">debug</span>:
+        <span style="color:#66d9ef">msg</span>: <span style="color:#e6db74">&#34;TODO: Change the keyboard layout&#34;</span>
+    - <span style="color:#66d9ef">name</span>: check ssh
+      <span style="color:#66d9ef">shell</span>: <span style="color:#e6db74">&#34;raspi-config nonint get_ssh&#34;</span>
+      <span style="color:#66d9ef">register</span>: ssh_status
+      <span style="color:#66d9ef">changed_when</span>: False
+    - <span style="color:#66d9ef">name</span>: enable ssh
+      <span style="color:#66d9ef">shell</span>: <span style="color:#e6db74">&#34;raspi-config nonint do_ssh 0&#34;</span>
+      <span style="color:#66d9ef">when</span>: ssh and (ssh_status.stdout != <span style="color:#e6db74">&#39;1&#39;</span>)
+    - <span style="color:#66d9ef">name</span>: disable ssh
+      <span style="color:#66d9ef">shell</span>: <span style="color:#e6db74">&#34;raspi-config nonint do_ssh 1&#34;</span>
+      <span style="color:#66d9ef">when</span>: (not ssh) and (ssh_status.stdout != <span style="color:#e6db74">&#39;0&#39;</span>)
+    - <span style="color:#66d9ef">name</span>: add the user <span style="color:#e6db74">&#39;{{ name }}&#39;</span> with a bash shell
+      <span style="color:#66d9ef">user</span>:
+        <span style="color:#66d9ef">name</span>: <span style="color:#e6db74">&#34;{{ username }}&#34;</span>
+        <span style="color:#66d9ef">shell</span>: /bin/bash
+        <span style="color:#66d9ef">groups</span>: 
+          - adm
+          - sudo
+        <span style="color:#66d9ef">append</span>: yes
+        <span style="color:#66d9ef">password</span>: <span style="color:#e6db74">&#34;{{ password  | password_hash(&#39;sha512&#39;) }}&#34;</span>
+    - <span style="color:#66d9ef">name</span>: lock the <span style="color:#e6db74">&#39;pi&#39;</span> user
+      <span style="color:#66d9ef">user</span>:
+        <span style="color:#66d9ef">name</span>: pi
+        <span style="color:#66d9ef">expires</span>: -<span style="color:#ae81ff">1</span>
+    - <span style="color:#66d9ef">name</span>: change root password
+      <span style="color:#66d9ef">user</span>:
+        <span style="color:#66d9ef">name</span>: root
+        <span style="color:#66d9ef">password</span>: <span style="color:#e6db74">&#34;{{ root_password | password_hash(&#39;sha512&#39;) }}&#34;</span>
+    - <span style="color:#66d9ef">name</span>: install packages
+      <span style="color:#66d9ef">apt</span>:
+        <span style="color:#66d9ef">name</span>: <span style="color:#e6db74">&#34;{{ item }}&#34;</span>
+        <span style="color:#66d9ef">state</span>: latest
+        <span style="color:#66d9ef">update_cache</span>: yes
+      <span style="color:#66d9ef">loop</span>: <span style="color:#e6db74">&#34;{{ packages }}&#34;</span>
+    - <span style="color:#66d9ef">name</span>: download the docker script
+      <span style="color:#66d9ef">get_url</span>:
+        <span style="color:#66d9ef">url</span>: <span style="color:#e6db74">&#34;https://get.docker.com&#34;</span>
+        <span style="color:#66d9ef">dest</span>: /tmp/docker.sh
+    - <span style="color:#66d9ef">name</span>: install docker
+      <span style="color:#66d9ef">shell</span>: <span style="color:#e6db74">&#34;bash /tmp/docker.sh&#34;</span>
+      <span style="color:#66d9ef">become</span>: yes
+      <span style="color:#66d9ef">notify</span>:
+        - cleanup docker
+    - <span style="color:#66d9ef">name</span>: add {{ username }} to the docker group
+      <span style="color:#66d9ef">user</span>:
+        <span style="color:#66d9ef">name</span>: <span style="color:#e6db74">&#34;{{ username }}&#34;</span>
+        <span style="color:#66d9ef">group</span>: docker
+        <span style="color:#66d9ef">append</span>: yes
+    - <span style="color:#66d9ef">name</span>: configure unattended upgrades
+      <span style="color:#66d9ef">lineinfile</span>:
+        <span style="color:#66d9ef">path</span>: /etc/apt/apt.conf.d/50unattended-upgrades
+        <span style="color:#66d9ef">line</span>: <span style="color:#e6db74">&#39;&#34;origin={{ item }},codename=${distro_codename},label={{ item }}&#34;&#39;</span>
+        <span style="color:#66d9ef">loop</span>:
+          - Raspbian
+          - Raspberry Pi Foundation
+    - <span style="color:#66d9ef">name</span>: configure ufw
+      <span style="color:#66d9ef">ufw</span>:
+        <span style="color:#66d9ef">comment</span>: SSH
+        <span style="color:#66d9ef">rule</span>: allow
+        <span style="color:#66d9ef">port</span>: <span style="color:#ae81ff">22</span>
+        <span style="color:#66d9ef">proto</span>: tcp
+      <span style="color:#66d9ef">when</span>: ufw_enabled
+    - <span style="color:#66d9ef">name</span>: restrict ssh
+      <span style="color:#66d9ef">lineinfile</span>:
+        <span style="color:#66d9ef">path</span>: /etc/ssh/sshd_config
+        <span style="color:#66d9ef">line</span>: <span style="color:#e6db74">&#34;AllowUsers {{ username }}&#34;</span>
+    - <span style="color:#66d9ef">name</span>: protect against brute force
+      <span style="color:#66d9ef">blockinfile</span>:
+        <span style="color:#66d9ef">path</span>: /etc/fail2ban/jail.local
+        <span style="color:#66d9ef">block</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">          [DEFAULT]</span>
+          bantime = 1h
+          banaction = ufw
+
+          [sshd]
+          enabled = <span style="color:#66d9ef">true</span>
+  <span style="color:#66d9ef">handlers</span>:
+    - <span style="color:#66d9ef">name</span>: cleanup docker
+      <span style="color:#66d9ef">file</span>:
+        <span style="color:#66d9ef">name</span>: /tmp/docker.sh
+        <span style="color:#66d9ef">state</span>: absent
+</code></pre></div><p>Now that is a long single playbook and probably doesn&rsquo;t address every security concern. Moreover, I still need to work on the keyboard layout change so I know what key I am pressing. I hope to test this a little more and add support for <code>dietpi</code> as well so that I can have a minimal image running on these RPi devices.</p>
+<p>Take a look at the project: <a href="https://github.com/justin1dennison/securing-a-raspberry-pi">Secure a Raspberry Pi</a></p>
+<p>Thanks for reading. I hope to make changes and improvements as I receive feedback and learn more about my setup.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6">
+      
+      
+      </div>
+    </section>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://justin1dennison.github.io/blog/" >
+    &copy;  Justin's Musings 2020 
+  </a>
+    <div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</footer>
+
+    
+
+  <script src="/blog/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

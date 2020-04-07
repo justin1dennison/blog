@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://justin1dennison.github.io/blog/posts/actions-with-go/</loc>
-    <lastmod>2020-02-05T09:54:08-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://justin1dennison.github.io/blog/</loc>
-    <lastmod>2020-02-05T09:54:08-05:00</lastmod>
+    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://justin1dennison.github.io/blog/posts/</loc>
+    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/posts/securing-a-raspberry-pi/</loc>
+    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/posts/actions-with-go/</loc>
     <lastmod>2020-02-05T09:54:08-05:00</lastmod>
   </url>
   

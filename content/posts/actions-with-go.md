@@ -2,6 +2,11 @@
 title: "GitHub Actions With Go"
 date: 2020-02-05T09:54:08-05:00
 draft: false
+tags: 
+  - automation
+  - github
+  - go
+  - security
 ---
 
 

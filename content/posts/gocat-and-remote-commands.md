@@ -2,6 +2,10 @@
 title: "GoCat and Remote Commands"
 date: 2020-01-29T16:17:21-05:00
 draft: false
+tags:
+  - security
+  - code execution
+  - go
 ---
 
 This week at work, Daniel, a coworker, and I have been experimenting with replacing the usage of netcat for executing commands on a remote machine with a custom-built piece of software. Well, more specifically, Daniel ran into some issues with netcat, with the -e option, being absent from a machine that he was trying to exploit. (Don’t worry, it was for learning purposes and nothing malicious.) As a result, Daniel devised a simple replacement to a standalone netcat binary.

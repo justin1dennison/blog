@@ -2,6 +2,11 @@
 title: "Securing a Raspberry Pi"
 date: 2020-04-07T11:01:59-04:00
 draft: false
+tags:
+  - system administration
+  - raspberry pi
+  - ansible
+  - automation
 ---
 
 Recently, I have been working on an automated water system. I am working on a proof of concept that would allow me to expand into more and more IoT projects for my house. In order to accomplish this, I am going to be running some services on a Raspberry Pi. Now, I know some of you are saying....

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ansible on Justin&#39;s Musings</title>
+    <link>https://justin1dennison.github.io/blog/tags/ansible/</link>
+    <description>Recent content in ansible on Justin&#39;s Musings</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Apr 2020 11:01:59 -0400</lastBuildDate>
+    
+	<atom:link href="https://justin1dennison.github.io/blog/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Securing a Raspberry Pi</title>
+      <link>https://justin1dennison.github.io/blog/posts/securing-a-raspberry-pi/</link>
+      <pubDate>Tue, 07 Apr 2020 11:01:59 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/posts/securing-a-raspberry-pi/</guid>
+      <description>Recently, I have been working on an automated water system. I am working on a proof of concept that would allow me to expand into more and more IoT projects for my house. In order to accomplish this, I am going to be running some services on a Raspberry Pi. Now, I know some of you are saying&amp;hellip;.
+I want to add a firewall and change my network to separate these IoT devices from the rest of my home devices.</description>
+    </item>
+    
+  </channel>
+</rss>

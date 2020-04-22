@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>github on Justin&#39;s Musings</title>
+    <link>https://justin1dennison.github.io/blog/tags/github/</link>
+    <description>Recent content in github on Justin&#39;s Musings</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Feb 2020 09:54:08 -0500</lastBuildDate>
+    
+	<atom:link href="https://justin1dennison.github.io/blog/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GitHub Actions With Go</title>
+      <link>https://justin1dennison.github.io/blog/posts/actions-with-go/</link>
+      <pubDate>Wed, 05 Feb 2020 09:54:08 -0500</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/posts/actions-with-go/</guid>
+      <description>Recently, I was working on a Go project (see GoCat and Remote Commands) in order to utilize Go&amp;rsquo;s wonderful cross platform support. However, when I think about rebuilding the binaries everytime that I make changes to the project, I just get tired. A little voice in my head says&amp;hellip;
+Before we move forward on how I automated the build process, I will warn you that sometimes this voice can create work for you that is not meaningful.</description>
+    </item>
+    
+  </channel>
+</rss>

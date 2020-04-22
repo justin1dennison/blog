@@ -6,9 +6,118 @@
     <description>Recent content in Tags on Justin&#39;s Musings</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Tue, 07 Apr 2020 11:01:59 -0400</lastBuildDate>
     
 	<atom:link href="https://justin1dennison.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ansible</title>
+      <link>https://justin1dennison.github.io/blog/tags/ansible/</link>
+      <pubDate>Tue, 07 Apr 2020 11:01:59 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/ansible/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>automation</title>
+      <link>https://justin1dennison.github.io/blog/tags/automation/</link>
+      <pubDate>Tue, 07 Apr 2020 11:01:59 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/automation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>raspberry pi</title>
+      <link>https://justin1dennison.github.io/blog/tags/raspberry-pi/</link>
+      <pubDate>Tue, 07 Apr 2020 11:01:59 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/raspberry-pi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>system administration</title>
+      <link>https://justin1dennison.github.io/blog/tags/system-administration/</link>
+      <pubDate>Tue, 07 Apr 2020 11:01:59 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/system-administration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github</title>
+      <link>https://justin1dennison.github.io/blog/tags/github/</link>
+      <pubDate>Wed, 05 Feb 2020 09:54:08 -0500</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://justin1dennison.github.io/blog/tags/go/</link>
+      <pubDate>Wed, 05 Feb 2020 09:54:08 -0500</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>security</title>
+      <link>https://justin1dennison.github.io/blog/tags/security/</link>
+      <pubDate>Wed, 05 Feb 2020 09:54:08 -0500</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>code execution</title>
+      <link>https://justin1dennison.github.io/blog/tags/code-execution/</link>
+      <pubDate>Wed, 29 Jan 2020 16:17:21 -0500</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/code-execution/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>benchmarking</title>
+      <link>https://justin1dennison.github.io/blog/tags/benchmarking/</link>
+      <pubDate>Wed, 22 Jan 2020 07:29:42 -0500</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/benchmarking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data structures</title>
+      <link>https://justin1dennison.github.io/blog/tags/data-structures/</link>
+      <pubDate>Wed, 22 Jan 2020 07:29:42 -0500</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/data-structures/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>performance</title>
+      <link>https://justin1dennison.github.io/blog/tags/performance/</link>
+      <pubDate>Wed, 22 Jan 2020 07:29:42 -0500</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/performance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://justin1dennison.github.io/blog/tags/python/</link>
+      <pubDate>Wed, 22 Jan 2020 07:29:42 -0500</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/python/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

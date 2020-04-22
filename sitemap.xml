@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://justin1dennison.github.io/blog/tags/ansible/</loc>
+    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/automation/</loc>
+    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://justin1dennison.github.io/blog/</loc>
     <lastmod>2020-04-07T11:01:59-04:00</lastmod>
   </url>
@@ -13,8 +23,28 @@
   </url>
   
   <url>
+    <loc>https://justin1dennison.github.io/blog/tags/raspberry-pi/</loc>
+    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://justin1dennison.github.io/blog/posts/securing-a-raspberry-pi/</loc>
     <lastmod>2020-04-07T11:01:59-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/system-administration/</loc>
+    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/</loc>
+    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/github/</loc>
+    <lastmod>2020-02-05T09:54:08-05:00</lastmod>
   </url>
   
   <url>
@@ -23,8 +53,33 @@
   </url>
   
   <url>
+    <loc>https://justin1dennison.github.io/blog/tags/go/</loc>
+    <lastmod>2020-02-05T09:54:08-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/security/</loc>
+    <lastmod>2020-02-05T09:54:08-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/code-execution/</loc>
+    <lastmod>2020-01-29T16:17:21-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://justin1dennison.github.io/blog/posts/gocat-and-remote-commands/</loc>
     <lastmod>2020-01-29T16:17:21-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/benchmarking/</loc>
+    <lastmod>2020-01-22T07:29:42-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/data-structures/</loc>
+    <lastmod>2020-01-22T07:29:42-05:00</lastmod>
   </url>
   
   <url>
@@ -33,11 +88,17 @@
   </url>
   
   <url>
-    <loc>https://justin1dennison.github.io/blog/categories/</loc>
+    <loc>https://justin1dennison.github.io/blog/tags/performance/</loc>
+    <lastmod>2020-01-22T07:29:42-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://justin1dennison.github.io/blog/tags/</loc>
+    <loc>https://justin1dennison.github.io/blog/tags/python/</loc>
+    <lastmod>2020-01-22T07:29:42-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/categories/</loc>
   </url>
   
 </urlset>

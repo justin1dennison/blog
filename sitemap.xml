@@ -3,22 +3,67 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://justin1dennison.github.io/blog/posts/abuse-python-for-fun/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/decorators/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/function-composition/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/magic-methods/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/not-meant-for-production/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/operator-overloading/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/posts/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/python/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/python-data-model/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://justin1dennison.github.io/blog/tags/</loc>
+    <lastmod>2020-04-26T22:01:23-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://justin1dennison.github.io/blog/tags/ansible/</loc>
     <lastmod>2020-04-07T11:01:59-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://justin1dennison.github.io/blog/tags/automation/</loc>
-    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://justin1dennison.github.io/blog/</loc>
-    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://justin1dennison.github.io/blog/posts/</loc>
     <lastmod>2020-04-07T11:01:59-04:00</lastmod>
   </url>
   
@@ -34,11 +79,6 @@
   
   <url>
     <loc>https://justin1dennison.github.io/blog/tags/system-administration/</loc>
-    <lastmod>2020-04-07T11:01:59-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://justin1dennison.github.io/blog/tags/</loc>
     <lastmod>2020-04-07T11:01:59-04:00</lastmod>
   </url>
   
@@ -89,11 +129,6 @@
   
   <url>
     <loc>https://justin1dennison.github.io/blog/tags/performance/</loc>
-    <lastmod>2020-01-22T07:29:42-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://justin1dennison.github.io/blog/tags/python/</loc>
     <lastmod>2020-01-22T07:29:42-05:00</lastmod>
   </url>
   

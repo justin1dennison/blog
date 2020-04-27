@@ -6,10 +6,73 @@
     <description>Recent content in Tags on Justin&#39;s Musings</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 Apr 2020 11:01:59 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 26 Apr 2020 22:01:23 -0400</lastBuildDate>
     
 	<atom:link href="https://justin1dennison.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>decorators</title>
+      <link>https://justin1dennison.github.io/blog/tags/decorators/</link>
+      <pubDate>Sun, 26 Apr 2020 22:01:23 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/decorators/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>function composition</title>
+      <link>https://justin1dennison.github.io/blog/tags/function-composition/</link>
+      <pubDate>Sun, 26 Apr 2020 22:01:23 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/function-composition/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>magic methods</title>
+      <link>https://justin1dennison.github.io/blog/tags/magic-methods/</link>
+      <pubDate>Sun, 26 Apr 2020 22:01:23 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/magic-methods/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>not meant for production</title>
+      <link>https://justin1dennison.github.io/blog/tags/not-meant-for-production/</link>
+      <pubDate>Sun, 26 Apr 2020 22:01:23 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/not-meant-for-production/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>operator overloading</title>
+      <link>https://justin1dennison.github.io/blog/tags/operator-overloading/</link>
+      <pubDate>Sun, 26 Apr 2020 22:01:23 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/operator-overloading/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://justin1dennison.github.io/blog/tags/python/</link>
+      <pubDate>Sun, 26 Apr 2020 22:01:23 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python data model</title>
+      <link>https://justin1dennison.github.io/blog/tags/python-data-model/</link>
+      <pubDate>Sun, 26 Apr 2020 22:01:23 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/tags/python-data-model/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ansible</title>
@@ -107,15 +170,6 @@
       <pubDate>Wed, 22 Jan 2020 07:29:42 -0500</pubDate>
       
       <guid>https://justin1dennison.github.io/blog/tags/performance/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>https://justin1dennison.github.io/blog/tags/python/</link>
-      <pubDate>Wed, 22 Jan 2020 07:29:42 -0500</pubDate>
-      
-      <guid>https://justin1dennison.github.io/blog/tags/python/</guid>
       <description></description>
     </item>
     

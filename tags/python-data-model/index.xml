@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python data model on Justin&#39;s Musings</title>
+    <link>https://justin1dennison.github.io/blog/tags/python-data-model/</link>
+    <description>Recent content in python data model on Justin&#39;s Musings</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 Apr 2020 22:01:23 -0400</lastBuildDate>
+    
+	<atom:link href="https://justin1dennison.github.io/blog/tags/python-data-model/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Abuse Python for Fun(ction)s</title>
+      <link>https://justin1dennison.github.io/blog/posts/abuse-python-for-fun/</link>
+      <pubDate>Sun, 26 Apr 2020 22:01:23 -0400</pubDate>
+      
+      <guid>https://justin1dennison.github.io/blog/posts/abuse-python-for-fun/</guid>
+      <description>I know that I shouldn&amp;rsquo;t have these &amp;ldquo;crazy&amp;rdquo; ideas, but sometimes they just jump into my mind. Recently, I was speaking to a coworker that is on a Linux learning journey, and he asked me about some of the bash scripting nuances. We were discussing some of the different operations available in bash such as @ and |. At that moment, I started thinking about how the | operator works in bash.</description>
+    </item>
+    
+  </channel>
+</rss>

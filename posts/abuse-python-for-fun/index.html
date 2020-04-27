@@ -35,7 +35,7 @@
 <meta itemprop="description" content="I know that I shouldn&rsquo;t have these &ldquo;crazy&rdquo; ideas, but sometimes they just jump into my mind. Recently, I was speaking to a coworker that is on a Linux learning journey, and he asked me about some of the bash scripting nuances. We were discussing some of the different operations available in bash such as @ and |. At that moment, I started thinking about how the | operator works in bash.">
 <meta itemprop="datePublished" content="2020-04-26T22:01:23-04:00" />
 <meta itemprop="dateModified" content="2020-04-26T22:01:23-04:00" />
-<meta itemprop="wordCount" content="898">
+<meta itemprop="wordCount" content="895">
 
 
 
@@ -243,12 +243,11 @@ It ran didn&rsquo;t it!</p>
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pipeliner</span>(operator):
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inner</span>(func):
-        pipe <span style="color:#f92672">=</span> Pipe(func)
 	<span style="color:#66d9ef">if</span> operator <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&gt;&gt;&#34;</span>:
-            pipe<span style="color:#f92672">.</span>__rrshift__ <span style="color:#f92672">=</span> call
+            setattr(Pipe, <span style="color:#e6db74">&#34;__rrshift__&#34;</span>, call)
 	<span style="color:#66d9ef">if</span> operator <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;|&#34;</span>:
-	    pipe<span style="color:#f92672">.</span>__ror__ <span style="color:#f92672">=</span> call
-        <span style="color:#66d9ef">return</span> pipe
+	    setattr(Pipe, <span style="color:#e6db74">&#34;__ror__&#34;</span>, call)
+        <span style="color:#66d9ef">return</span> Pipe(func)
     <span style="color:#66d9ef">return</span> inner
 
 <span style="color:#75715e"># so now we can do the following</span>

@@ -157,12 +157,11 @@ def call(obj, parameter):
 
 def pipeliner(operator):
     def inner(func):
-        pipe = Pipe(func)
 	if operator == ">>":
-            pipe.__rrshift__ = call
+            Pipe.__rrshift__ = call
 	if operator == "|":
-	    pipe.__ror__ = call
-        return pipe
+	    Pipe.__ror__ = call
+        return Pipe(func)
     return inner
 
 # so now we can do the following

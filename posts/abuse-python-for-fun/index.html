@@ -175,10 +175,10 @@ result <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
     <span style="color:#a6e22e">@wraps</span>(func)
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
         start <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>perf_counter()
-	result <span style="color:#f92672">=</span> func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
-	end <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>perf_counter()
-	<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{func.__name__} took {end - start} seconds.&#34;</span>)
-	<span style="color:#66d9ef">return</span> result
+        result <span style="color:#f92672">=</span> func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+        end <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>perf_counter()
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{func.__name__} took {end - start} seconds.&#34;</span>)
+        <span style="color:#66d9ef">return</span> result
     <span style="color:#66d9ef">return</span> wrapper
 
 
@@ -229,11 +229,11 @@ result <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
 
 
 </code></pre></div><p>Run it! Go ahead&hellip; I&rsquo;ll wait again.</p>
-<p>.
-.
-.
-.
-It ran didn&rsquo;t it!</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+<p>It ran didn&rsquo;t it!</p>
 <p><img src="/blog/images/victory.jpg" alt="Squirrel Victor"></p>
 <p>Now at this point, we can write a decorator that will allow us to choose an operator and then return the object (such as Pipe) that will allow our &ldquo;wonderful&rdquo; syntax.</p>
 <p>Let&rsquo;s take a crack at it.</p>
@@ -243,13 +243,12 @@ It ran didn&rsquo;t it!</p>
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">pipeliner</span>(operator):
     <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inner</span>(func):
-	<span style="color:#66d9ef">if</span> operator <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&gt;&gt;&#34;</span>:
+	    <span style="color:#66d9ef">if</span> operator <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&gt;&gt;&#34;</span>:
             setattr(Pipe, <span style="color:#e6db74">&#34;__rrshift__&#34;</span>, call)
-	<span style="color:#66d9ef">if</span> operator <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;|&#34;</span>:
-	    setattr(Pipe, <span style="color:#e6db74">&#34;__ror__&#34;</span>, call)
+	    <span style="color:#66d9ef">if</span> operator <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;|&#34;</span>:
+	        setattr(Pipe, <span style="color:#e6db74">&#34;__ror__&#34;</span>, call)
         <span style="color:#66d9ef">return</span> Pipe(func)
     <span style="color:#66d9ef">return</span> inner
-
 <span style="color:#75715e"># so now we can do the following</span>
 
 <span style="color:#a6e22e">@pipeliner</span>(<span style="color:#e6db74">&#34;|&#34;</span>)

@@ -70,10 +70,10 @@ def timeit(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         start = time.perf_counter()
-	result = func(*args, **kwargs)
-	end = time.perf_counter()
-	print(f"{func.__name__} took {end - start} seconds.")
-	return result
+        result = func(*args, **kwargs)
+        end = time.perf_counter()
+        print(f"{func.__name__} took {end - start} seconds.")
+        return result
     return wrapper
 
 
@@ -140,9 +140,17 @@ print(f"Result: {result}")
 Run it! Go ahead... I'll wait again. 
 
 .
+
+
 .
+
+
 .
+
+
 .
+
+
 It ran didn't it!
 
 ![Squirrel Victor](/blog/images/victory.jpg)
@@ -157,13 +165,12 @@ def call(obj, parameter):
 
 def pipeliner(operator):
     def inner(func):
-	if operator == ">>":
+	    if operator == ">>":
             setattr(Pipe, "__rrshift__", call)
-	if operator == "|":
-	    setattr(Pipe, "__ror__", call)
+	    if operator == "|":
+	        setattr(Pipe, "__ror__", call)
         return Pipe(func)
     return inner
-
 # so now we can do the following
 
 @pipeliner("|")

@@ -2,8 +2,9 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from "astro:content";
 const postEntries = await getCollection("posts", ({ data }) => {
-    return import.meta.env.PROD ? data.draft !== true : true;
+  return import.meta.env.PROD ? data.draft !== true : true;
 });
+const baseUrl = import.meta.env.BASE_URL;
 
 ---
 
@@ -13,7 +14,7 @@ const postEntries = await getCollection("posts", ({ data }) => {
       {postEntries.map((entry) =>
         (
         <li>
-          <a href=`/blog/posts/${entry.slug}`>{ entry.data.title }</a>
+          <a href=`${baseUrl}/posts/${entry.slug}`>{ entry.data.title }</a>
         </li>
       ))}
     </ul>

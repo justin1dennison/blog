@@ -1,11 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Welcome to JD.">
 	<main>
 		<h1>Welcome to <span class="text-gradient">JD's</span> page.</h1>
-	</main>
+  </main>
+  <ul>
+    <li><a href=`${baseUrl}/posts`>Blog Posts</a></li>
+  </ul>
 </Layout>
 
 
